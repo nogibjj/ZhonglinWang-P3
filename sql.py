@@ -2,8 +2,8 @@
 import csv
 import sqlite3
 
-## Step 1: Do SQL queries via a cursor after connecting to netflix_titles database
-connects = sqlite3.connect("netflix_titles.db")
+## Step 1: Do SQL queries via a cursor after connecting to zomato database
+connects = sqlite3.connect("zomato.db")
 cursor = connects.cursor()
 
 ## Step 2: Create a new table called netflix_type1
