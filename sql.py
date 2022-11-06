@@ -9,7 +9,7 @@ cursor = connects.cursor()
 ## Step 2: Create a new table called superstore (new_table)
 new_table = """CREATE TABLE superstore111(
  				unique_id VAR PRIMARY KEY,
-                Ship Mode VAR,
+                Ship-Mode VAR,
                 Segment VAR,
  				Country VAR,
  				City VAR,
