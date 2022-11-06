@@ -2,65 +2,58 @@
 import csv
 import sqlite3
 
-## Step 1: Do SQL queries via a cursor after connecting to zomato database
-connects = sqlite3.connect("zomato.db")
+## Step 1: Do SQL queries via a cursor after connecting to superstore database
+connects = sqlite3.connect("superstore.db")
 cursor = connects.cursor()
 
-## Step 2: Create a new table called netflix_type1
-new_table = """CREATE TABLE zomato111(
- 				Restaurant ID PRIMARY KEY,
-                Restaurant Name,
-                Country Code,
- 				City,
- 				Address,
- 				Locality,
- 				Locality Verbose,
- 				Longitude,
- 				Latitude DATE,
- 				Cuisines DATE,
- 				Average Cost for two,
- 				Currency,
- 				Has Table booking,
- 				Has Online delivery,
-                Is delivering now,
-                Switch to order menu,
-                Price range,
-                Aggregate rating,
-                Rating color,
-                Rating text,
-                Votes
+## Step 2: Create a new table called superstore (new_table)
+new_table = """CREATE TABLE superstore111(
+ 				unique_id VAR PRIMARY KEY,
+                Ship Mode VAR,
+                Segment VAR,
+ 				Country VAR,
+ 				City VAR,
+ 				State VAR,
+ 				Postal Code VAR,
+ 				Region VAR,
+                Category VAR,
+				Sub-Category VAR,
+				Sales VAR,
+				Quantity VAR,
+				Discount VAR,
+				Profit VAR
  				);
  				"""
-## Step 3: Insert the new table into the original database, then insert data into table zomato by using SQL query
+## Step 3: Insert the new table into the original database, then insert data into table superstore by using SQL query
 cursor.execute(new_table)
-insert_data = "INSERT INTO zomato111 (Restaurant ID, Restaurant Name,Country Code,City,Address,Locality,Locality Verbose,Longitude,Latitude DATE,Cuisines DATE,Average Cost for two,Currency,Has Table booking,Has Online delivery,Is delivering now,Switch to order menu,Price range,Aggregate rating,Rating color,Rating text,Votes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?);"
+insert_data = "INSERT INTO superstore111 (unique_id,Ship Mode,Segment,Country,City,State,Postal Code,Region,Category,Sub-Category,Sales,Quantity,Discount,Profit) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
 ## Step 4: Read each record from netflix_titles.csv file and import its records to new table netflix_type
-file = open("zomato.csv")
+file = open("superstore.csv")
 records = csv.reader(file)
 cursor.executemany(insert_data, records)
 
-### Query 1: Find the top five countries who have the most TV Shows in zomato
-query1 = """SELECT Distinct country, count(type) 
-		   FROM zomato111
-		   WHERE country != '' AND type='TV Show'
-		   Group by country
-		   Order by count(type) DESC
+### Query 1: Find the top five countries who have the most TV Shows in superstore
+query1 = """SELECT Distinct State, count(Segment) 
+		   FROM superstore111
+		   WHERE State != '' AND Segment='Consumer'
+		   Group by State
+		   Order by count(Segment) DESC
 		   LIMIT 5;"""
-top5_tv_country = cursor.execute(query1).fetchall()
+top5_consumer = cursor.execute(query1).fetchall()
 
-### Query 2: Find the top five countries who have the most movies in Netlfix
-query2 = """SELECT Distinct country, count(type) 
-		   FROM zomato111
-		   WHERE country != '' AND type='Movie'
-		   Group by country
-		   Order by count(type) DESC
+### Query 2: Find the top five countries who have the most movies in superstore
+query2 = """SELECT Distinct State, count(Segment) 
+		   FROM superstore111
+		   WHERE State != '' AND Segment='Corporate'
+		   Group by State
+		   Order by count(Segment) DESC
 		   LIMIT 5;"""
-top5_movie_country = cursor.execute(query2).fetchall()
+top5_corporate = cursor.execute(query2).fetchall()
 
-### Query 3: Find the top five directors who directed the most movies or TV shows in Netlfix
+### Query 3: Find the top five directors who directed the most movies or TV shows in superstore
 query3 = """SELECT Distinct director, count(title) 
-		   FROM zomato111
+		   FROM superstore111
 		   WHERE director != '' 
 		   Group by director
 		   Order by count(title) DESC
@@ -69,7 +62,7 @@ top5_director = cursor.execute(query3).fetchall()
 
 ### Query 4: Find the top five directors who have the most movies or TV shows in Netlfix are listed in Documentaries
 query4 = """SELECT Distinct director, count(listed_in) 
-		   FROM zomato111
+		   FROM superstore111
 		   WHERE director != '' AND listed_in = 'Documentaries'
 		   Group by director
 		   Order by count(listed_in) DESC
@@ -78,7 +71,7 @@ top5_director_documentaries = cursor.execute(query4).fetchall()
 
 ### Query 5: Find the top five directors who have the most adult movies or TV shows in Netlfix
 query5 = """SELECT Distinct director, count(rating) 
-		   FROM zomato111
+		   FROM superstore111
 		   WHERE director != '' AND rating in ('R', 'TV-MA', 'NC-17')
 		   Group by director
 		   Order by count(rating) DESC
