@@ -14,7 +14,7 @@ new_table = """CREATE TABLE superstore111(
  				Country VAR,
  				City VAR,
  				State VAR,
- 				Postal Code VAR,
+ 				Postal-Code VAR,
  				Region VAR,
                 Category VAR,
 				Sub-Category VAR,
@@ -26,7 +26,7 @@ new_table = """CREATE TABLE superstore111(
  				"""
 ## Step 3: Insert the new table into the original database, then insert data into table superstore by using SQL query
 cursor.execute(new_table)
-insert_data = "INSERT INTO superstore111 (unique_id,Ship Mode,Segment,Country,City,State,Postal Code,Region,Category,Sub-Category,Sales,Quantity,Discount,Profit) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+insert_data = "INSERT INTO superstore111 (unique_id,Ship-Mode,Segment,Country,City,State,Postal-Code,Region,Category,Sub-Category,Sales,Quantity,Discount,Profit) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
 ## Step 4: Read each record from superstore.csv file and import the data to new table
 file = open("superstore.csv")
