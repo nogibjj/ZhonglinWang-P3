@@ -8,29 +8,35 @@ cursor = connects.cursor()
 
 ## Step 2: Create a new table called netflix_type1
 new_table = """CREATE TABLE netflix_type000(
- 				Restaurant ID VAR PRIMARY KEY,
-                Restaurant Name VAR,
-                Country Code VAR,
- 				type VAR,
- 				title VAR,
- 				director VAR,
- 				cast VAR,
- 				country VAR,
- 				date_added DATE,
- 				release_year DATE,
- 				rating VAR,
- 				duration VAR,
- 				listed_in VAR,
- 				description VAR
+ 				Restaurant ID PRIMARY KEY,
+                Restaurant Name,
+                Country Code,
+ 				City,
+ 				Address,
+ 				Locality,
+ 				Locality Verbose,
+ 				Longitude,
+ 				Latitude DATE,
+ 				Cuisines DATE,
+ 				Average Cost for two,
+ 				Currency,
+ 				Has Table booking,
+ 				Has Online delivery,
+                Is delivering now,
+                Switch to order menu,
+                Price range,
+                Aggregate rating,
+                Rating color,
+                Rating text,
+                Votes
  				);
  				"""
-City,Address,Locality,Locality Verbose,Longitude,Latitude,Cuisines,Average Cost for two,Currency,Has Table booking,Has Online delivery,Is delivering now,Switch to order menu,Price range,Aggregate rating,Rating color,Rating text,Votes
-## Step 3: Insert the new table into the original database, then insert data into table netflix_type by using SQL query
+## Step 3: Insert the new table into the original database, then insert data into table zomato by using SQL query
 cursor.execute(new_table)
-insert_data = "INSERT INTO netflix_type000 (show_id, type, title, director,cast,country,date_added,release_year,rating,duration,listed_in,description) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+insert_data = "INSERT INTO netflix_type000 (Restaurant ID, Restaurant Name,Country Code,City,Address,Locality,Locality Verbose,Longitude,Latitude DATE,Cuisines DATE,Average Cost for two,Currency,Has Table booking,Has Online delivery,Is delivering now,Switch to order menu,Price range,Aggregate rating,Rating color,Rating text,Votes) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?);"
 
 ## Step 4: Read each record from netflix_titles.csv file and import its records to new table netflix_type
-file = open("netflix_titles.csv")
+file = open("zomato.csv")
 records = csv.reader(file)
 cursor.executemany(insert_data, records)
 
