@@ -28,88 +28,56 @@ new_table = """CREATE TABLE superstore111(
 cursor.execute(new_table)
 insert_data = "INSERT INTO superstore111 (unique_id,Ship Mode,Segment,Country,City,State,Postal Code,Region,Category,Sub-Category,Sales,Quantity,Discount,Profit) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
-## Step 4: Read each record from netflix_titles.csv file and import its records to new table netflix_type
+## Step 4: Read each record from superstore.csv file and import the data to new table
 file = open("superstore.csv")
 records = csv.reader(file)
 cursor.executemany(insert_data, records)
 
-### Query 1: Find the top five countries who have the most TV Shows in superstore
+### Query 1: Find the top ten states who has the most consumer customers in superstore
 query1 = """SELECT Distinct State, count(Segment) 
 		   FROM superstore111
 		   WHERE State != '' AND Segment='Consumer'
 		   Group by State
 		   Order by count(Segment) DESC
-		   LIMIT 5;"""
-top5_consumer = cursor.execute(query1).fetchall()
+		   LIMIT 10;"""
+top10_consumer = cursor.execute(query1).fetchall()
 
-### Query 2: Find the top five countries who have the most movies in superstore
+### Query 2: Find the top ten states who has the most corporate customers in superstore
 query2 = """SELECT Distinct State, count(Segment) 
 		   FROM superstore111
 		   WHERE State != '' AND Segment='Corporate'
 		   Group by State
 		   Order by count(Segment) DESC
-		   LIMIT 5;"""
-top5_corporate = cursor.execute(query2).fetchall()
+		   LIMIT 10;"""
+top10_corporate = cursor.execute(query2).fetchall()
 
-### Query 3: Find the top five directors who directed the most movies or TV shows in superstore
-query3 = """SELECT Distinct director, count(title) 
+### Query 3: Find the top ten cities who has the most profit in superstore
+query3 = """SELECT Distinct City, sum(Profit) 
 		   FROM superstore111
-		   WHERE director != '' 
-		   Group by director
-		   Order by count(title) DESC
-		   LIMIT 5;"""
-top5_director = cursor.execute(query3).fetchall()
-
-### Query 4: Find the top five directors who have the most movies or TV shows in Netlfix are listed in Documentaries
-query4 = """SELECT Distinct director, count(listed_in) 
-		   FROM superstore111
-		   WHERE director != '' AND listed_in = 'Documentaries'
-		   Group by director
-		   Order by count(listed_in) DESC
-		   LIMIT 5;"""
-top5_director_documentaries = cursor.execute(query4).fetchall()
-
-### Query 5: Find the top five directors who have the most adult movies or TV shows in Netlfix
-query5 = """SELECT Distinct director, count(rating) 
-		   FROM superstore111
-		   WHERE director != '' AND rating in ('R', 'TV-MA', 'NC-17')
-		   Group by director
-		   Order by count(rating) DESC
-		   LIMIT 5;"""
-top5_director_adult = cursor.execute(query5).fetchall()
+		   WHERE City != '' 
+		   Group by City
+		   Order by count(Profit) DESC
+		   LIMIT 10;"""
+top10_city = cursor.execute(query3).fetchall()
 
 ## Step 5: Show all the results after quering data to the terminal
 ###Query 1
 print("#" * 50)
-print(f"Top five countries who have the most TV Shows in Netlfix:")
-for i in top5_tv_country:
+print(f"Top ten states who has the most consumer customers in superstore:")
+for i in top10_consumer:
     print(i)
 
 ###Query 2
 print("#" * 50)
-print(f"Top five countries who have the most movies in Netlfix:")
-for j in top5_movie_country:
+print(f"Top ten states who has the most corporate customers in superstore:")
+for j in top10_corporate:
     print(j)
 
 ###Query 3
 print("#" * 50)
-print(f"Top five directors who directed the most movies or TV shows in Netlfix:")
-for k in top5_director:
+print(f"Top ten cities who has the most profit in superstore:")
+for k in top10_city:
     print(k)
-
-###Query 4
-print("#" * 50)
-print(
-    f"Top five directors who have the most movies or TV shows in Netlfix are listed in Documentaries at Netlfix:"
-)
-for l in top5_director_documentaries:
-    print(l)
-
-###Query 5
-print("#" * 50)
-print(f"Top five directors who have the most adult movies or TV shows in Netlfix:")
-for m in top5_director_adult:
-    print(m)
 
 ## Finally: Commit all changes and close the database connection
 connects.commit()
