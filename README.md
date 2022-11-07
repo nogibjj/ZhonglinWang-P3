@@ -3,8 +3,8 @@
 ## Abstract
 In this project 3, our primary goal is to create a sql script doing sql-quarying data from the dataset "superstore.csv". The dataset is downloaded from Kaggle dataset website: https://www.kaggle.com/datasets/roopacalistus/superstore?resource=download. It includes superstore information across the US. There are 13 variables: Ship Mode, Segment, Country, City, State, Postal code, Region, Category, Sub-category, Sales, Quantity, Discount, and Profit. I add another unique_id variable as the unique identification code of each store. This project aimed at building a connection from original data, insert all records, and read them into the file called superstore.db. The built-in SQL statements will be used for answer my three reseach questions:  
 
-* What are the top ten states who has the most consumer customers among all superstores?
-* What are the top ten states who has the most corporate customers among all superstores?
+* What are the top ten states who has the most superstores whose majority customers is consumer?
+* What are the top ten states who has the most superstores whose majority customers is corporate?
 * What are top ten cities who has the most profit of superstores?
 
 ## Demo Video Link
@@ -54,12 +54,6 @@ Type: `import csv` and `import sqlite3`
 
 ### Query 3: Find the top five directors who directed the most movies or TV shows on Netflix
 <img width="672" alt="3" src="https://user-images.githubusercontent.com/112274822/199576221-a5d89bf4-162c-43d7-b4fc-6cb6ca18276c.png">
-
-### Query 4: Find the top five directors who have the most movies or TV shows on Netflix are listed in Documentaries
-<img width="846" alt="4" src="https://user-images.githubusercontent.com/112274822/199576271-8cae94d2-f938-47c5-818a-c77349f55eeb.png">
-
-### Query 5: Find the top five directors who have the most adult movies or TV shows on Netflix
-<img width="686" alt="5" src="https://user-images.githubusercontent.com/112274822/199576326-be1283c2-a568-4b88-b5cc-4a3804ab920a.png">
 
 ## Show all the results after querying data on Terminal
 ### We need to use the print function at netflix_type.py, the code is shown below:
